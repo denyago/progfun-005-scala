@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+scala_verion = ENV['TRAVIS_SCALA_VERSION']
+command = "sbt#{scala_verion ? " ++#{scala_verion}" : ''} test"
+
+directories = Dir.glob('*').select {|f| File.directory? f}
+
+puts "Running tests for #{directories.join('/, ')}/ ..."
+
+successes = directories.map do |dir|
+    puts "  #{dir}/ ..."
+    puts "  " + (cmd = %Q{cd #{dir} && #{command}})
+    system cmd
+  end
+
+unless successes.all?
+  puts 'Failed to run some tests!'
+  exit 1
+else
+  puts 'All tests pass.'
+end
+
+# vi:syntax=ruby

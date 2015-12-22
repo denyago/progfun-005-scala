@@ -1,0 +1,13 @@
+language: scala
+
+scala:
+  - 2.11.7
+
+jdk:
+  - oraclejdk8
+
+install:
+  - rvm install 2.2
+
+script:
+  - ./run_all_tests
