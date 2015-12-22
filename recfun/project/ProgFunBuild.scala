@@ -1,4 +1,5 @@
 import sbt._
+import sbt.complete.DefaultParsers._
 import Keys._
 
 import scalaz.{Success, Failure}
@@ -126,7 +127,7 @@ object ProgFunBuild extends Build {
   val submit = InputKey[Unit]("submit")
 
   lazy val submitSetting = submit := {
-    val args = Def.spaceDelimited("<arg>").parsed
+    val args = spaceDelimited("<arg>").parsed
     val _ = (compile in Compile).value
     val s = streams.value
     if (currentProject.value != "") {
